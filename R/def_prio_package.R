@@ -79,7 +79,7 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final) {
 
     df11[is.na(df11)] <- 0
 
-    out_dir <- file.path(folder, "outputs", paste0("v", i))
+    out_dir <- file.path(folder, "outputs", ano_final, paste0("v", i))
     dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
     out_dirs[[paste0("month_", i)]] <- out_dir
