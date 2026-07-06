@@ -1,9 +1,9 @@
 data_catalog <- list(
 
   focos =
-    "https://github.com/LucasUfmg/pdm/releases/tag/v.0.1.2/focos_package_2016_2024.gpkg",
+    "https://github.com/LucasUfmg/pdm/releases/tag/v_0.1.0/focos_package_2016_2024.gpkg",
 
   deforestation =
-    "https://github.com/LucasUfmg/pdm/releases/tag/v.0.1.2/deter_package.gpkg"
+    "https://github.com/LucasUfmg/pdm/releases/tag/v_0.1.0/deter_package.gpkg"
 
 )

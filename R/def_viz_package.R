@@ -23,6 +23,8 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial) {
   dir.create(file.path(folder, "outputs", ano_final), recursive = TRUE,
              showWarnings = FALSE)
 
+  save_path <- file.path(folder, "outputs", ano_final)
+
   for (i in mes_inicial:mes_final) {
 
     #Previsao
@@ -33,7 +35,6 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial) {
     #dfinal1 <- dfinal[,-c(18:21)]
 
     #pred <- predict(model, dfinal1)
-
 
 
     prio <- sf::st_read(file.path(save_path, paste0("v", i), "priorizacao.gpkg"))
@@ -89,7 +90,6 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial) {
     d <- sf::st_make_valid(d)
 
     # -------- Plot 1 --------
-    save_path <- file.path(folder, "outputs", ano_final)
 
       grDevices::png(file.path(save_path, paste0("v", i), paste0("plot_", i, ".png")),
         width = 3000, height = 2400, res = 300)
