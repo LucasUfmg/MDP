@@ -4,7 +4,7 @@
 \alias{load_ext_shp}
 \title{Run prioritization model}
 \usage{
-load_ext_shp(name, package = "pdm")
+load_ext_shp(name, package = "mdp")
 }
 \arguments{
 \item{name}{file name}

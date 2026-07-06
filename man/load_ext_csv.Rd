@@ -4,7 +4,7 @@
 \alias{load_ext_csv}
 \title{Load external shapefile}
 \usage{
-load_ext_csv(name, package = "pdm")
+load_ext_csv(name, package = "mdp")
 }
 \arguments{
 \item{name}{Name of the spatial file.}
