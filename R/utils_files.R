@@ -7,7 +7,7 @@
 #' @return shapefile
 #' @export
 # Internal helper to load shapefiles from inst/extdata
-load_ext_shp <- function(name, package = "pdm") {
+load_ext_shp <- function(name, package = "mdp") {
 
   shp_path <- system.file("extdata", paste0(name), package = package)
 
@@ -30,7 +30,7 @@ load_ext_shp <- function(name, package = "pdm") {
 #'
 #' @return An sf object.
 #' @export
-load_ext_csv <- function(name, package = "pdm") {
+load_ext_csv <- function(name, package = "mdp") {
 
   csv_path <- system.file("extdata", paste0(name), package = package)
 
