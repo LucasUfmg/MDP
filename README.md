@@ -29,9 +29,7 @@ mdp::run_pipeline(
   mes_final   = 9,
   ano_inicial = 2022,
   ano_final   = 2022,
-  run_prep    = TRUE,
-  run_prio    = TRUE
-)
+  run_prep    = TRUE)
 ```
 
 ### Arguments
@@ -43,5 +41,4 @@ mdp::run_pipeline(
 | `mes_final` | Final month to process. |
 | `ano_inicial` | Initial year to process. |
 | `ano_final` | Final year to process. |
-| `run_prep` | Run the data preparation step (`TRUE`/`FALSE`). |
-| `run_prio` | Run the prioritization model (`TRUE`/`FALSE`). |
+| `run_prep` | Run the data preparation step (`TRUE`/`FALSE`).
