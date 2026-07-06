@@ -29,7 +29,8 @@ mdp::run_pipeline(
   mes_final   = 9,
   ano_inicial = 2022,
   ano_final   = 2022,
-  run_prep    = TRUE)
+  run_prep    = TRUE,
+  run_prio    = TRUE)
 ```
 
 ### Arguments
