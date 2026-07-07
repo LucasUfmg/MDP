@@ -1,6 +1,6 @@
 #' Get cache directory
 #'
-#' Returns the local cache directory used by pdm.
+#' Returns the local cache directory used by MDP.
 #'
 #' @return Character string containing the cache path.
 #' @export
