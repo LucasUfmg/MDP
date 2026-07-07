@@ -4,10 +4,10 @@ download_data <- function(
     force = FALSE
 ) {
 
-  #local_file <- file.path(
-  #  get_cache_dir(),
-  #  filename
-  #)
+  local_file <- file.path(
+    get_cache_dir(),
+    filename
+  )
 
   if (!file.exists(local_file) || force) {
 
