@@ -8,7 +8,7 @@
 get_cache_dir <- function() {
 
   cache_dir <- tools::R_user_dir(
-    package = "MDP",
+    package = "mdp",
     which = "cache"
   )
 
