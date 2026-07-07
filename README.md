@@ -8,7 +8,7 @@ install.packages("devtools")
 
 # Install package dependencies
 devtools::install_github("albhasan/prioritizedeforestationhotspots")
-devtools::install_github("LucasUfmg/mdp")
+devtools::install_github("LucasUfmg/MDP")
 ```
 
 # Load the packages
