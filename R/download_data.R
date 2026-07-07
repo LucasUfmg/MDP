@@ -1,7 +1,7 @@
 download_data <- function(
     url,
     filename,
-    force = FALSE
+    force = TRUE
 ) {
 
   local_file <- file.path(
