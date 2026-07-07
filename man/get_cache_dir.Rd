@@ -10,5 +10,5 @@ get_cache_dir()
 Character string containing the cache path.
 }
 \description{
-Returns the local cache directory used by pdm.
+Returns the local cache directory used by MDP.
 }
