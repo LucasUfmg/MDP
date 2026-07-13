@@ -15,6 +15,7 @@ update_fires <- function(mes_inicial,mes_final,ano_inicial,ano_final) {
     ano_inicial <- 2025
     ano_final <- 2025
   }
+
   # 5. State dictionary
   uf_dict <- tibble::tribble(
     ~sigla, ~nome_completo,
@@ -64,7 +65,7 @@ update_fires <- function(mes_inicial,mes_final,ano_inicial,ano_final) {
   # 8. Standardize new data
   new_data <- new_data |>
     dplyr::mutate(
-      data_pas = as.Date(.data$data_pas),
+      data_pas = as.Date(.data$data_pas,format = "%d/%m/%Y"),
       ano = format(.data$data_pas, "%Y"),
       mes = format(.data$data_pas, "%m"),
       anomes = format(.data$data_pas, "%Y-%m"),
