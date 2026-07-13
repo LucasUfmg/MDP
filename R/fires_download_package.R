@@ -12,8 +12,10 @@ update_fires <- function(mes_inicial,mes_final,ano_inicial,ano_final) {
 
   if(ano_inicial > 2025){
     cat("Base de focos usada de 2025")
-    ano_inicial <- 2025
+    ano_inicial <- 2025 - 4
     ano_final <- 2025
+  } else {
+    ano_inicial <- ano_inicial - 4
   }
 
   # 5. State dictionary
