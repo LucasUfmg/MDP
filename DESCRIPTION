@@ -11,9 +11,11 @@ Imports:
     grDevices,
     lubridate,
     prioritizedeforestationhotspots,
+    queimadasR,
     rlang,
     sf,
     stats,
+    tibble,
     tidyr,
     tools,
     utils
