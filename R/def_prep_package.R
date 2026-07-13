@@ -168,12 +168,19 @@ def_prep <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final) {
         # Fire aggregation
         # -------------------------
 
+        df_focos <- sf::st_as_sf(
+          df_focos,
+          coords = c("longitude", "latitude"),
+          crs = 4326)
+
+        df_focos <- ensure_crs(df_focos, sf::st_crs(qt))
+
         f <- dplyr::left_join(
           qt,
           df_focos |>
             #dplyr::filter(Month == j) |>
             dplyr::filter(.data$mes == j) |>
-            sf::st_transform(sf::st_crs(qt)) |>
+            #sf::st_transform(sf::st_crs(qt)) |>
             sf::st_join(qt) |>
             sf::st_drop_geometry() |>
             #dplyr::group_by(Id, Month) |>
@@ -194,6 +201,8 @@ def_prep <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final) {
         # -------------------------
 
         patches_df <- sf::st_drop_geometry(sf::st_transform(patches_in_region, sf::st_crs(points)))
+        #fire_df <- sf::st_drop_geometry(sf::st_transform(f, sf::st_crs(points)))
+
         fire_df <- sf::st_drop_geometry(sf::st_transform(f, sf::st_crs(points)))
 
         df_final <- fire_df |>
