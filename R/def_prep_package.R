@@ -36,7 +36,7 @@ def_prep <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final) {
                            ano_final = ano_final,
                            mes_inicial = mes_inicial,
                            mes_final = mes_final)
-  df_focos <- ensure_crs(df_focos, sf::st_crs(deter))
+  #df_focos <- ensure_crs(df_focos, sf::st_crs(deter))
 
   points <- load_ext_shp("Pontos.shp")
   points <- ensure_crs(points, sf::st_crs(deter))
@@ -171,18 +171,22 @@ def_prep <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final) {
         f <- dplyr::left_join(
           qt,
           df_focos |>
-            dplyr::filter(Month == j) |>
+            #dplyr::filter(Month == j) |>
+            dplyr::filter(.data$mes == j) |>
             sf::st_transform(sf::st_crs(qt)) |>
             sf::st_join(qt) |>
             sf::st_drop_geometry() |>
-            dplyr::group_by(Id, Month) |>
+            #dplyr::group_by(Id, Month) |>
+            dplyr::group_by(Id, .data$mes) |>
             dplyr::summarise(n = dplyr::n(), .groups = "drop") |>
             dplyr::rename(OBJECTID = Id),
           by = "OBJECTID"
         ) |>
           dplyr::mutate(
-            n = ifelse(is.na(n), 0, n),
-            Month = j
+            n = ifelse(is.na(.data$n), 0, .data$n),
+            #Month = j
+            mes = j
+
           )
 
         # -------------------------
