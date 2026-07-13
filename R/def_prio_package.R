@@ -44,7 +44,7 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final) {
   for (i in mes_inicial:mes_final) {
 
     df1_f <- year_list |>
-      dplyr::filter(Month == i) |>
+      dplyr::filter(.data$mes == i) |>
       dplyr::mutate(
         lagg = dplyr::case_when(
           lag == "-1" ~ "atual",
@@ -56,7 +56,7 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final) {
       dplyr::select(-lag)
 
     df_long <- df1_f |>
-      dplyr::mutate(Month_year = paste0(year, "_", sprintf("%02d", Month)))
+      dplyr::mutate(Month_year = paste0(year, "_", sprintf("%02d", .data$mes)))
 
     df_wide <- df_long |>
       tidyr::pivot_wider(
