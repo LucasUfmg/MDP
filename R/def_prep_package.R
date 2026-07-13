@@ -32,7 +32,10 @@ def_prep <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final) {
 
   #df_focos <- sf::read_sf(file.path(folder, "focos_2016_2024.shp"), quiet = TRUE)
   #df_focos <- get_focos()
-  df_focos <- update_fires(ano_inicial, ano_final, mes_inicial, mes_final)
+  df_focos <- update_fires(ano_inicial = ano_inicial,
+                           ano_final = ano_final,
+                           mes_inicial = mes_inicial,
+                           mes_final = mes_final)
   df_focos <- ensure_crs(df_focos, sf::st_crs(deter))
 
   points <- load_ext_shp("Pontos.shp")
