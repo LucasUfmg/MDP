@@ -82,7 +82,8 @@ run_pipeline <- function(
     folder = folder,
     mes_inicial = mes_inicial,
     mes_final = mes_final,
-    ano_final = ano_final
+    ano_final = ano_final,
+    ano_inicial = ano_inicial
   )
   message("def_viz completed.")
 

@@ -12,7 +12,7 @@ run_pipeline(
   mes_final = NULL,
   run_prio = TRUE,
   run_prep = TRUE,
-  annual = TRUE
+  annual = F
 )
 }
 \arguments{

@@ -30,18 +30,23 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final) {
 
   # Usa tabela default df_operacionalizado caso usuario nao rode def_prio
   #if (length(list.files(folder)) == 0) {
-    year_list <- utils::read.csv(
-      file.path(folder, "tabelas",
-                paste0("df_operacionalizado_", ano_inicial, "_", ano_final, ".csv")))
-    #}else {
-   # year_list <- load_ext_csv("df_operacionalizado_2018_2022.csv")
+  year_list <- utils::read.csv(
+    file.path(folder, "tabelas",
+              paste0("df_operacionalizado_", ano_inicial, "_", ano_final, ".csv")))
+  #}else {
+  # year_list <- load_ext_csv("df_operacionalizado_2018_2022.csv")
   #}
-
   year_list$area_deter_m2[is.na(year_list$area_deter_m2)] <- 0
 
   out_dirs <- list()
 
+  for (j in ano_inicial:ano_final) {
+
+  out_dirs_ano <- list()
+  out_dirs[[paste0(i,"_", j)]] <- out_dirs_ano
+
   for (i in mes_inicial:mes_final) {
+
 
     df1_f <- year_list |>
       dplyr::filter(.data$mes == i) |>
@@ -79,12 +84,13 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final) {
 
     df11[is.na(df11)] <- 0
 
-    out_dir <- file.path(folder, "outputs", ano_final, paste0("v", i))
-    dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
+    out_dir <- file.path(folder, "outputs", paste0(j), paste0("v", i))
 
-    out_dirs[[paste0("month_", i)]] <- out_dir
+    dir.create(out_dir, showWarnings = FALSE, recursive = TRUE) # Cria pasta output
 
-    cols <- names(df11)[grepl(paste0("^area_deter_m2lagatual",ano_final,"_\\d{2}$"), names(df11))]
+    out_dirs_ano[[paste0(i,"_", j)]] <- out_dir
+
+    cols <- names(df11)[grepl(paste0("^area_deter_m2lagatual",j,"_\\d{2}$"), names(df11))]
 
     # --- keep your internal functions ---
     read_data <- function(raw = FALSE) {
@@ -155,5 +161,7 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final) {
     sf::write_sf(results_year_tmp, file.path(out_dir, "priorizacao.gpkg"))
   }
 
+  }
   return(invisible(out_dirs))
-}
+
+  }
