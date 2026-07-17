@@ -9,6 +9,8 @@ install.packages("devtools")
 # Install package dependencies
 devtools::install_github("albhasan/prioritizedeforestationhotspots")
 devtools::install_github("LucasUfmg/MDP")
+devtools::install_github("wtassinari/queimadasR")
+
 ```
 
 # Load the packages
@@ -16,6 +18,7 @@ devtools::install_github("LucasUfmg/MDP")
 ```r
 library(prioritizedeforestationhotspots)
 library(mdp)
+library(queimadasR)
 ```
 
 # Minimal example
