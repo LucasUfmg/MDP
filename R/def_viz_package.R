@@ -17,8 +17,7 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial) {
   #pf <- utils::read.csv(file.path(folder, "tabelas", "perc_floresta_por_grid.csv"))
   #pf <- dplyr::rename(pf, id = OBJECTID)
 
-  result <- data.frame()
-  dff <- data.frame()
+
 
   for (year in ano_inicial:ano_final) {
 
@@ -26,6 +25,9 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial) {
                showWarnings = FALSE)
 
     save_path <- file.path(folder, "outputs", year)
+
+    result <- data.frame()
+    dff <- data.frame()
 
     for (i in mes_inicial:mes_final) {
 
