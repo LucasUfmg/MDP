@@ -4,7 +4,7 @@
 \alias{def_prep}
 \title{Prepare dataset for monthly prioritization}
 \usage{
-def_prep(folder, ano_inicial, ano_final, mes_inicial, mes_final)
+def_prep(folder, ano_inicial, ano_final, mes_inicial, mes_final, annual)
 }
 \arguments{
 \item{folder}{Path to data folder}
@@ -16,6 +16,8 @@ def_prep(folder, ano_inicial, ano_final, mes_inicial, mes_final)
 \item{mes_inicial}{Start month}
 
 \item{mes_final}{End month}
+
+\item{annual}{Logical, whether to run PRODES or DETER}
 }
 \value{
 Data frame with aggregated results

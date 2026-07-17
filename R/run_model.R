@@ -9,6 +9,7 @@
 #' @param mes_final End month
 #' @param run_prio Logical
 #' @param run_prep Logical, whether to run def_prep
+#' @param annual Logical, whether to run PRODES or DETER
 #' @export
 run_pipeline <- function(
     folder,
@@ -18,7 +19,8 @@ run_pipeline <- function(
     mes_final = NULL,
     #run_download = FALSE,
     run_prio = TRUE,
-    run_prep = TRUE
+    run_prep = TRUE,
+    annual = F
 ) {
 
   if (is.null(ano_inicial)){
@@ -41,21 +43,11 @@ run_pipeline <- function(
     mes_final <- 12
   }
 
-  # if (isTRUE(run_download)) {
-  #   message("Downloading data...")
-  #
-  #   folder_id <- "1pvJ9BQ5WD-NT24X_kwKi-kZdLJMbINm9"
-  #   folder_id_tabelas <-'1XinL78HmnY3skbKWRthZlgmeY5cKQBj6'
-  #
-  #   paths <- download_data(
-  #     folder_id = folder_id,
-  #     folder_id_tabelas = folder_id_tabelas,
-  #     root1 = folder
-  #   )
-  #
-  #   folder <- paths$shp_dir
-  #
-  # } else {message("Skipping Downloading data...")}
+  if (isTRUE(annual)) {
+    message("Running with PRODES...")
+    } else {
+    message("Running with DETER....")
+  }
 
   if (isTRUE(run_prep)) {
     message("Running def_prep...")
@@ -64,7 +56,8 @@ run_pipeline <- function(
       ano_inicial = ano_inicial,
       ano_final = ano_final,
       mes_inicial = mes_inicial,
-      mes_final = mes_final
+      mes_final = mes_final,
+      annual = annual
     )
     message("def_prep completed.")
   } else {
@@ -94,4 +87,21 @@ run_pipeline <- function(
   message("def_viz completed.")
 
   message("Pipeline finished.")
+
+
+  # if (isTRUE(run_download)) {
+  #   message("Downloading data...")
+  #
+  #   folder_id <- "1pvJ9BQ5WD-NT24X_kwKi-kZdLJMbINm9"
+  #   folder_id_tabelas <-'1XinL78HmnY3skbKWRthZlgmeY5cKQBj6'
+  #
+  #   paths <- download_data(
+  #     folder_id = folder_id,
+  #     folder_id_tabelas = folder_id_tabelas,
+  #     root1 = folder
+  #   )
+  #
+  #   folder <- paths$shp_dir
+  #
+  # } else {message("Skipping Downloading data...")}
 }

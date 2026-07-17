@@ -11,7 +11,8 @@ run_pipeline(
   mes_inicial = NULL,
   mes_final = NULL,
   run_prio = TRUE,
-  run_prep = TRUE
+  run_prep = TRUE,
+  annual = TRUE
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ run_pipeline(
 \item{run_prio}{Logical}
 
 \item{run_prep}{Logical, whether to run def_prep}
+
+\item{annual}{Logical, whether to run PRODES or DETER}
 }
 \description{
 Executes def_prep, def_prio, and def_viz sequentially.
