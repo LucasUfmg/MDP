@@ -91,7 +91,7 @@ update_deforestation <- function() {
     return(base_up)
   }
 
-  base_up
+  #base_up
 }
 
 

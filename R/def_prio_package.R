@@ -40,6 +40,7 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final) {
 
   out_dirs <- list()
 
+  i = mes_inicial
   for (j in ano_inicial:ano_final) {
 
   out_dirs_ano <- list()
