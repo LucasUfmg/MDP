@@ -7,12 +7,13 @@
 #' @param ano_final End year
 #' @param mes_inicial Start month
 #' @param mes_final End month
+#' @param annual wheather to run prodes or deter
 #' @importFrom dplyr where
 #' @importFrom utils assignInNamespace
 #' @importFrom stats as.formula
 #' @return Invisible list of output directories
 #' @export
-def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final) {
+def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final,annual) {
 
   sf::sf_use_s2(FALSE)
 
@@ -30,9 +31,21 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final) {
 
   # Usa tabela default df_operacionalizado caso usuario nao rode def_prio
   #if (length(list.files(folder)) == 0) {
-  year_list <- utils::read.csv(
-    file.path(folder, "tabelas",
-              paste0("df_operacionalizado_", ano_inicial, "_", ano_final, ".csv")))
+
+  if(annual == T){
+
+    year_list <- utils::read.csv(
+      file.path(folder, "tabelas",
+                paste0("df_operacionalizado_prodes_", ano_inicial, "_", ano_final, ".csv")))
+
+  } else {
+
+    year_list <- utils::read.csv(
+      file.path(folder, "tabelas",
+                paste0("df_operacionalizado_", ano_inicial, "_", ano_final, ".csv")))
+  }
+
+
   #}else {
   # year_list <- load_ext_csv("df_operacionalizado_2018_2022.csv")
   #}

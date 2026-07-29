@@ -50,15 +50,30 @@ run_pipeline <- function(
   }
 
   if (isTRUE(run_prep)) {
-    message("Running def_prep...")
-    def_prep(
-      folder = folder,
-      ano_inicial = ano_inicial,
-      ano_final = ano_final,
-      mes_inicial = mes_inicial,
-      mes_final = mes_final,
-      annual = annual
-    )
+
+    if (isTRUE(annual)){
+
+      message("Running def_prep_prodes...")
+      def_prep_prodes(
+        folder = folder,
+        ano_inicial = ano_inicial,
+        ano_final = ano_final,
+        annual = annual
+      )
+      message("def_prep_prodes completed.")
+    } else {
+
+      message("Running def_prep...")
+      def_prep(
+        folder = folder,
+        ano_inicial = ano_inicial,
+        ano_final = ano_final,
+        mes_inicial = mes_inicial,
+        mes_final = mes_final,
+        annual = annual
+      )
+    }
+
     message("def_prep completed.")
   } else {
     message("Skipping def_prep.")

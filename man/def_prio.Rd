@@ -4,7 +4,7 @@
 \alias{def_prio}
 \title{Run prioritization model}
 \usage{
-def_prio(folder, ano_inicial, ano_final, mes_inicial, mes_final)
+def_prio(folder, ano_inicial, ano_final, mes_inicial, mes_final, annual)
 }
 \arguments{
 \item{folder}{Path to data folder}
@@ -16,6 +16,8 @@ def_prio(folder, ano_inicial, ano_final, mes_inicial, mes_final)
 \item{mes_inicial}{Start month}
 
 \item{mes_final}{End month}
+
+\item{annual}{wheather to run prodes or deter}
 }
 \value{
 Invisible list of output directories

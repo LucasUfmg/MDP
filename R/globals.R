@@ -10,7 +10,7 @@ utils::globalVariables(c(
   "folder_id_tabelas","area_comp",
   "comission_rate",
   "priority",
-  "priority1",
+  "priority1", "j",
   "has_deter",
   "area_tot", "interaction_var","p", "UF", "MUNICIPALI", "annual"
 ))
