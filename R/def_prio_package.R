@@ -62,8 +62,10 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final,annu
   for (i in mes_inicial:mes_final) {
 
 
-    df1_f <- year_list |>
-      dplyr::filter(.data$mes == i) |>
+    if(annual == T){
+
+      df1_f <- year_list |>
+      #dplyr::filter(.data$mes == i) |>
       dplyr::mutate(
         lagg = dplyr::case_when(
           lag == "-1" ~ "atual",
@@ -72,10 +74,32 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final,annu
           lag == "3"  ~ "quatro_ant"
         )
       ) |>
+
       dplyr::select(-lag)
 
-    df_long <- df1_f |>
-      dplyr::mutate(Month_year = paste0(year, "_", sprintf("%02d", .data$mes)))
+
+      df_long <- df1_f |>
+        dplyr::mutate(Month_year = paste0(year, "_01"))
+
+      } else {
+
+        df1_f <- year_list |>
+        dplyr::filter(.data$mes == i) |>
+        dplyr::mutate(
+          lagg = dplyr::case_when(
+            lag == "-1" ~ "atual",
+            lag == "0"  ~ "ano_ant",
+            lag == "1"  ~ "dois_ant",
+            lag == "3"  ~ "quatro_ant"
+          )
+        ) |>
+        dplyr::select(-lag)
+
+        df_long <- df1_f |>
+          dplyr::mutate(Month_year = paste0(year, "_", sprintf("%02d", .data$mes)))
+
+      }
+
 
     df_wide <- df_long |>
       tidyr::pivot_wider(

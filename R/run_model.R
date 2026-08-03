@@ -86,7 +86,8 @@ run_pipeline <- function(
     ano_inicial = ano_inicial,
     ano_final = ano_final,
     mes_inicial = mes_inicial,
-    mes_final = mes_final
+    mes_final = mes_final,
+    annual = annual
   )
   message("def_prio completed.")} else {
     message("Skipping def_prio.")
