@@ -99,7 +99,8 @@ run_pipeline <- function(
     mes_inicial = mes_inicial,
     mes_final = mes_final,
     ano_final = ano_final,
-    ano_inicial = ano_inicial
+    ano_inicial = ano_inicial,
+    annual = annual
   )
   message("def_viz completed.")
 

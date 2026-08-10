@@ -4,7 +4,7 @@
 \alias{def_viz}
 \title{Visualize prioritization results}
 \usage{
-def_viz(folder, mes_inicial, mes_final, ano_final, ano_inicial)
+def_viz(folder, mes_inicial, mes_final, ano_final, ano_inicial, annual)
 }
 \arguments{
 \item{folder}{Character. Path to root folder.}
@@ -16,6 +16,8 @@ def_viz(folder, mes_inicial, mes_final, ano_final, ano_inicial)
 \item{ano_final}{Integer. Final year defined by the user}
 
 \item{ano_inicial}{Integer. Initial year defined by the user}
+
+\item{annual}{Character. Path to root folder.}
 }
 \value{
 Invisibly returns NULL.

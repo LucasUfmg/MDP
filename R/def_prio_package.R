@@ -13,14 +13,16 @@
 #' @importFrom stats as.formula
 #' @return Invisible list of output directories
 #' @export
+
+
+
 def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final,annual) {
 
   sf::sf_use_s2(FALSE)
 
   dir.create(file.path(folder, "outputs"), showWarnings = FALSE, recursive = TRUE)
-  #pt_infra_f <- utils::read.csv(file.path(folder, "tabelas", "infra_pa.csv"), header = T)
+
   pt_infra_f <- load_ext_csv("infra_pa.csv") |>
-    #utils::read.csv(file.path(folder, "tabelas", "infra_pa.csv"), header = T) |>
     dplyr::select(-X) |>
     dplyr::rename(
       area_PA = PA_area,
@@ -29,61 +31,62 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final,annu
       dist_hidro_road = dist_hidro_rod
     )
 
-  # Usa tabela default df_operacionalizado caso usuario nao rode def_prio
-  #if (length(list.files(folder)) == 0) {
+if (annual) {
+  mes_inicial <- 1
+  mes_final   <- 1
 
-  if(annual == T){
+  year_list <- utils::read.csv(
+    file.path(
+      folder,
+      "tabelas",
+      paste0("df_operacionalizado_prodes_", ano_inicial, "_", ano_final, ".csv")
+    )
+  )
+} else {
 
-    year_list <- utils::read.csv(
-      file.path(folder, "tabelas",
-                paste0("df_operacionalizado_prodes_", ano_inicial, "_", ano_final, ".csv")))
+  year_list <- utils::read.csv(
+    file.path(
+      folder,
+      "tabelas",
+      paste0("df_operacionalizado_", ano_inicial, "_", ano_final, ".csv")
+    )
+  )
+}
 
-  } else {
+year_list$area_deter_m2[is.na(year_list$area_deter_m2)] <- 0
 
-    year_list <- utils::read.csv(
-      file.path(folder, "tabelas",
-                paste0("df_operacionalizado_", ano_inicial, "_", ano_final, ".csv")))
-  }
+out_dirs <- list()
 
-
-  #}else {
-  # year_list <- load_ext_csv("df_operacionalizado_2018_2022.csv")
-  #}
-  year_list$area_deter_m2[is.na(year_list$area_deter_m2)] <- 0
-
-  out_dirs <- list()
-
-  i = mes_inicial
-  for (j in ano_inicial:ano_final) {
+for (j in ano_inicial:ano_final) {
 
   out_dirs_ano <- list()
-  out_dirs[[paste0(i,"_", j)]] <- out_dirs_ano
+  out_dirs[[paste0(mes_inicial, "_", j)]] <- out_dirs_ano
 
   for (i in mes_inicial:mes_final) {
 
-
-    if(annual == T){
+    if (annual) {
 
       df1_f <- year_list |>
-      #dplyr::filter(.data$mes == i) |>
-      dplyr::mutate(
-        lagg = dplyr::case_when(
-          lag == "-1" ~ "atual",
-          lag == "0"  ~ "ano_ant",
-          lag == "1"  ~ "dois_ant",
-          lag == "3"  ~ "quatro_ant"
-        )
-      ) |>
-
-      dplyr::select(-lag)
-
+        dplyr::mutate(
+          lagg = dplyr::case_when(
+            lag == "-1" ~ "atual",
+            lag == "0"  ~ "ano_ant",
+            lag == "1"  ~ "dois_ant",
+            lag == "3"  ~ "quatro_ant"
+          )
+        ) |>
+        dplyr::select(-lag)
 
       df_long <- df1_f |>
-        dplyr::mutate(Month_year = paste0(year, "_01"))
+        dplyr::mutate(
+          Month_year = paste0(year, "_01")
+        )
 
-      } else {
+      out_dir <- file.path(folder, "outputs", paste0(j), "v1")
 
-        df1_f <- year_list |>
+    } else {
+
+      df1_f <- year_list |>
         dplyr::filter(.data$mes == i) |>
         dplyr::mutate(
           lagg = dplyr::case_when(
@@ -95,11 +98,13 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final,annu
         ) |>
         dplyr::select(-lag)
 
-        df_long <- df1_f |>
-          dplyr::mutate(Month_year = paste0(year, "_", sprintf("%02d", .data$mes)))
+      df_long <- df1_f |>
+        dplyr::mutate(
+          Month_year = paste0(year, "_", sprintf("%02d", .data$mes))
+        )
 
-      }
-
+      out_dir <- file.path(folder, "outputs", paste0(j), paste0("v", i))
+    }
 
     df_wide <- df_long |>
       tidyr::pivot_wider(
@@ -165,10 +170,10 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final,annu
 
     # keep but risky
     utils::assignInNamespace(".read_data", read_data,
-                      ns = "prioritizedeforestationhotspots")
+                             ns = "prioritizedeforestationhotspots")
 
     utils::assignInNamespace(".build_formula", build_formula,
-                      ns = "prioritizedeforestationhotspots")
+                             ns = "prioritizedeforestationhotspots")
 
     prioritizedeforestationhotspots::fit_model(out_dir)
 
@@ -198,8 +203,5 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final,annu
 
     sf::write_sf(results_year_tmp, file.path(out_dir, "priorizacao.gpkg"))
   }
-
-  }
-  return(invisible(out_dirs))
-
-  }
+  return(invisible(out_dirs))}
+}
