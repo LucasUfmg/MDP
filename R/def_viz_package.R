@@ -238,23 +238,47 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
     grDevices::png(file.path(save_path, "comissao.png"),
                    width = 3000, height = 3000, res = 300)
 
-    print(
-      result |>
-        dplyr::group_by(ref_yer) |>
-        dplyr::summarise(n = mean(comission_rate * 100)) |>
-        ggplot2::ggplot() +
-        ggplot2::aes(x = ref_yer, y = n) +
-        ggplot2::geom_point(size = 2.5) +
-        ggplot2::geom_line(size = 1.1) +
-        ggplot2::scale_x_continuous(breaks = 1:12, labels = month.name) +
-        ggplot2::geom_text(
-          ggplot2::aes(label = round(n, 2)),
-          vjust = -1, size = 4
-        ) +
+      if (annual == T) {
+
+        print(
+          result |>
+            dplyr::group_by(ref_yer) |>
+            dplyr::summarise(n = mean(comission_rate * 100)) |>
+            ggplot2::ggplot() +
+            ggplot2::aes(x = yr, y = n) +
+            ggplot2::geom_point(size = 2.5) +
+            ggplot2::geom_line(size = 1.1) +
+            ggplot2::scale_x_continuous(breaks = 1:12, labels = month.name) +
+            ggplot2::geom_text(
+              ggplot2::aes(label = round(n, 2)),
+              vjust = -1, size = 4
+            ) +
 
 
-        ggplot2::ggtitle("Comission Erros")
-    )
+            ggplot2::ggtitle("Comission Erros")
+        )
+
+      } else {
+
+        print(
+          result |>
+            dplyr::group_by(ref_yer) |>
+            dplyr::summarise(n = mean(comission_rate * 100)) |>
+            ggplot2::ggplot() +
+            ggplot2::aes(x = ref_yer, y = n) +
+            ggplot2::geom_point(size = 2.5) +
+            ggplot2::geom_line(size = 1.1) +
+            ggplot2::scale_x_continuous(breaks = 1:12, labels = month.name) +
+            ggplot2::geom_text(
+              ggplot2::aes(label = round(n, 2)),
+              vjust = -1, size = 4
+            ) +
+
+
+            ggplot2::ggtitle("Comission Erros")
+        )
+      }
+
 
     grDevices::dev.off()
 
@@ -262,24 +286,50 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
     grDevices::png(file.path(save_path,"erro_comissao_final.png"),
                    width = 3000, height = 2400, res = 300)
 
-    print(
-      dff |>
-        dplyr::mutate(
-          month = factor(month, levels = 1:12,
-                         labels = month.abb)
-        ) |>
-        dplyr::group_by(month) |>
-        dplyr::mutate(perc = n / sum(n) * 100) |>
-        ggplot2::ggplot(ggplot2::aes(x = month, y = n,
-                                     fill = interaction_var)) + #`interaction(priority1, has_deter)`
-        ggplot2::geom_col(position = "dodge") +
-        ggplot2::geom_text(
-          ggplot2::aes(label = paste0(round(perc, 1), "%")),
-          position = ggplot2::position_dodge(0.8),
-          vjust = -0.5
-        ) +
-        ggplot2::theme_minimal()
-    )
+
+    if (annual == T) {
+
+      print(
+        dff |>
+          dplyr::mutate(
+            month = factor(month, levels = 1:12,
+                           labels = month.abb)
+          ) |>
+          dplyr::group_by(month) |>
+          dplyr::mutate(perc = n / sum(n) * 100) |>
+          ggplot2::ggplot(ggplot2::aes(x = as.integer(yr), y = n,
+                                       fill = interaction_var)) + #`interaction(priority1, has_deter)`
+          ggplot2::geom_col(position = "dodge") +
+          ggplot2::geom_text(
+            ggplot2::aes(label = paste0(round(perc, 1), "%")),
+            position = ggplot2::position_dodge(0.8),
+            vjust = -0.5
+          ) +
+          ggplot2::theme_minimal()
+      )
+    } else {
+
+      print(
+        dff |>
+          dplyr::mutate(
+            month = factor(month, levels = 1:12,
+                           labels = month.abb)
+          ) |>
+          dplyr::group_by(month) |>
+          dplyr::mutate(perc = n / sum(n) * 100) |>
+          ggplot2::ggplot(ggplot2::aes(x = month, y = n,
+                                       fill = interaction_var)) + #`interaction(priority1, has_deter)`
+          ggplot2::geom_col(position = "dodge") +
+          ggplot2::geom_text(
+            ggplot2::aes(label = paste0(round(perc, 1), "%")),
+            position = ggplot2::position_dodge(0.8),
+            vjust = -0.5
+          ) +
+          ggplot2::theme_minimal()
+      )
+    }
+
+
 
     grDevices::dev.off()
   }
