@@ -190,6 +190,28 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
       grDevices::png(file.path(save_path,"plot_percentual.png"),
                      width = 4000, height = 3000, res = 300)
 
+    if (annual == T) {
+
+      print(
+        result |>
+          ggplot2::ggplot() +
+          ggplot2::aes(x= as.integer(yr), y = p, color = priority1) + #`100 * area_tot/area_comp`
+          ggplot2::geom_point(size = 2.5) +
+          ggplot2::geom_line(size = 1.1) +
+          #ggplot2::scale_x_continuous(breaks = 1:12, labels = month.name) +
+          #ggplot2::xlab(if (annual == T) "Year" else "Months") +
+          ggplot2::ylab("%") +
+          ggplot2::theme(
+            axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust = 1)
+          ) +
+          ggplot2::geom_text(
+            ggplot2::aes(label = round(p, 2)), #`100 * area_tot/area_comp`
+            vjust = -0.5, size = 4
+          ) +
+          ggplot2::theme_classic(base_size = 16)
+      )
+    } else {
+
       print(
         result |>
           ggplot2::ggplot() +
@@ -208,6 +230,7 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
           ) +
           ggplot2::theme_classic(base_size = 16)
       )
+    }
 
       grDevices::dev.off()
 
