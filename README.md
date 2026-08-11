@@ -32,9 +32,9 @@ mdp::run_pipeline(
   mes_final   = 12,
   ano_inicial = 2024,
   ano_final   = 2025,
-  run_prep    = F,
-  run_prio    = F,
-  annual = T) # if annual == T then model runs with PRODES data at annual basis, if annual == F model runs with DETER at monthly basis
+  run_prep    = T, # if TRUE function builds data base at 25x25 grid 
+  run_prio    = T, # if TRUE function runs the random forest model
+  annual = T) # if TRUE funtion runs with PRODES at annual basis, otherwise it runs with DETER at monthly basis
 ```
 
 ### Arguments
