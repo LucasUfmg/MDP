@@ -27,13 +27,14 @@ Run the complete pipeline by specifying your working directory and the desired t
 
 ```r
 mdp::run_pipeline(
-  folder      = "your_path_here",  # Path to the project directory
-  mes_inicial = 9,
-  mes_final   = 9,
-  ano_inicial = 2022,
-  ano_final   = 2022,
-  run_prep    = TRUE,
-  run_prio    = TRUE)
+  folder      = "C:/Users/luktr/Desktop/lucas/testa_pacote",  # Path to the project directory
+  mes_inicial = 1,
+  mes_final   = 12,
+  ano_inicial = 2024,
+  ano_final   = 2025,
+  run_prep    = F,
+  run_prio    = F,
+  annual = T) # if annual == T then model runs with PRODES data at annual basis, if annual == F model runs with DETER at monthly basis
 ```
 
 ### Arguments
@@ -47,4 +48,5 @@ mdp::run_pipeline(
 | `ano_final` | Final year to process. |
 | `run_prep` | Run the data preparation step (`TRUE`/`FALSE`). |
 | `run_prio` | Run the model step (`TRUE`/`FALSE`). |
+| `annual` | Run model annual or monthyl step (`TRUE`/`FALSE`). |
 
