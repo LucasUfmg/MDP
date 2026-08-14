@@ -1,28 +1,21 @@
-download_data <- function(
-    url,
-    filename,
-    force = FALSE
-) {
+download_data <- function(url, filename, force = FALSE) {
 
+  tmp <- get_cache_dir()
 
-  tmp <- "C:/Users/luktr/AppData/Local/R/cache/R/mdp"
-
-  local_file <- file.path(
-    tmp,
-    #get_cache_dir(),
-    filename
-  )
+  local_file <- file.path(tmp, filename)
 
   if (!file.exists(local_file) || force) {
 
-    utils::download.file(
-      url,
-      local_file,
-      mode = "wb"
-    )
+    dir.create(tmp, recursive = TRUE, showWarnings = FALSE)
 
+    utils::download.file(
+      url = url,
+      destfile = local_file,
+      mode = "wb",
+      quiet = FALSE
+    )
   }
 
   local_file
-
 }
+
