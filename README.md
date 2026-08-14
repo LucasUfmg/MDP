@@ -29,7 +29,7 @@ Run the complete pipeline by specifying your working directory and the desired t
 mdp::run_pipeline(
   folder      = "C:/Users/luktr/Desktop/lucas/testa_pacote",  # Path to the project directory
   mes_inicial = 1,
-  mes_final   = 12,
+  mes_final   = 1,
   ano_inicial = 2024,
   ano_final   = 2025,
   run_prep    = T, # if TRUE function builds data base at 25x25 grid 
