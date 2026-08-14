@@ -27,13 +27,14 @@ Run the complete pipeline by specifying your working directory and the desired t
 
 ```r
 mdp::run_pipeline(
-  folder      = "your_path_here",  # Path to the project directory
-  mes_inicial = 9,
-  mes_final   = 9,
-  ano_inicial = 2022,
-  ano_final   = 2022,
-  run_prep    = TRUE,
-  run_prio    = TRUE)
+  folder      = "C:/Users/luktr/Desktop/lucas/testa_pacote",  # Path to the project directory
+  mes_inicial = 1,
+  mes_final   = 12,
+  ano_inicial = 2024,
+  ano_final   = 2025,
+  run_prep    = T, # if TRUE function builds data base at 25x25 grid 
+  run_prio    = T, # if TRUE function runs the random forest model
+  annual = T) # if TRUE funtion runs with PRODES at annual basis, otherwise it runs with DETER at monthly basis
 ```
 
 ### Arguments
@@ -47,4 +48,5 @@ mdp::run_pipeline(
 | `ano_final` | Final year to process. |
 | `run_prep` | Run the data preparation step (`TRUE`/`FALSE`). |
 | `run_prio` | Run the model step (`TRUE`/`FALSE`). |
+| `annual` | Run model annual or monthyl step (`TRUE`/`FALSE`). |
 
