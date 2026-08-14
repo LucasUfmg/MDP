@@ -25,13 +25,12 @@ def_prep_prodes <- function(folder, ano_inicial, ano_final,mes_inicial, mes_fina
   #deter <- sf::st_read(file.path(folder, "deter-amz-deter-public.shp"), quiet = TRUE)
   #deter <- get_deforestation()
 
-  if (annual == T) {
     message("Running with PRODES in def_prep...")
     deter <- update_deforestation_prodes() # chave para trazer dados atualizados
     deter <- ensure_crs(deter)
     deter <- sf::st_cast(deter, "POLYGON")
     message("PRODES loaded.")
-  }
+
 
   q <- load_ext_shp("Grade_Random_Forest.shp")
   qt <- ensure_crs(q, sf::st_crs(deter))
