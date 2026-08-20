@@ -23,7 +23,9 @@ library(queimadasR)
 
 # Minimal example
 
-Run the complete pipeline by specifying your working directory and the desired time period.
+Run the complete pipeline by specifying your working directory and the desired time period. 
+
+If you want to run a monthly simulation use:
 
 ```r
 mdp::run_pipeline(
@@ -34,7 +36,21 @@ mdp::run_pipeline(
   ano_final   = 2025,
   run_prep    = T, # if TRUE function builds data base at 25x25 grid 
   run_prio    = T, # if TRUE function runs the random forest model
-  annual = T) # if TRUE funtion runs with PRODES at annual basis, otherwise it runs with DETER at monthly basis
+  annual = F) # if TRUE function runs annualy with PRODES, otherwise monthly with DETER
+```
+
+If you want to run a yearly simulation use:
+
+```r
+mdp::run_pipeline(
+  folder      = "C:/Users/luktr/Desktop/lucas/testa_pacote",  # Path to the project directory
+  mes_inicial = 1,
+  mes_final   = 1,
+  ano_inicial = 2024,
+  ano_final   = 2025,
+  run_prep    = T, # if TRUE function builds data base at 25x25 grid 
+  run_prio    = T, # if TRUE function runs the random forest model
+  annual = T) # if TRUE function runs annualy with PRODES, otherwise monthly with DETER
 ```
 
 ### Arguments
