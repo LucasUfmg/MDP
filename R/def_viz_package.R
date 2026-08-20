@@ -19,12 +19,12 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
 
   if (annual == T) {
     months <- 1
-    output_path <- file.path(folder, "outputs")
 
   } else {
     months <- mes_inicial:mes_final
   }
 
+  output_path <- file.path(folder, "outputs")
   dir.create(output_path, recursive = TRUE, showWarnings = FALSE)
 
 
@@ -81,7 +81,7 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
     } else {
 
       # Monthly mode keeps one folder per year
-      save_path <- file.path(folder, "outputs", yr)
+      save_path <- file.path(folder, "outputs")#, yr)
 
       dir.create(
         save_path,
