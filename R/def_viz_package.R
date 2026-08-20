@@ -184,7 +184,7 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
 
         map_path <- file.path(
           save_path,
-          paste0("v", i),
+          paste0(yr,"/","v", i),
           paste0("plot_", i, ".png")
         )
 
@@ -272,7 +272,7 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
 
         map_path <- file.path(
           save_path,
-          paste0("v", i),
+          paste0(yr,"/","v", i),
           paste0("erro_comissao_MAPA_", i, ".png")
         )
       }
@@ -448,6 +448,7 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
       grDevices::png(
         file.path(
           save_path,
+          paste0(yr),
           "plot_percentual.png"
         ),
         width = 4000,
@@ -492,6 +493,7 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
       grDevices::png(
         file.path(
           save_path,
+          paste0(yr),
           "comissao.png"
         ),
         width = 3000,
@@ -542,6 +544,7 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
       grDevices::png(
         file.path(
           save_path,
+          paste0(yr),
           "erro_comissao_final.png"
         ),
         width = 3000,
