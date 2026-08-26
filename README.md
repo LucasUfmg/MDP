@@ -23,6 +23,8 @@ Run the complete pipeline by specifying your working directory and the desired t
 If you want to run a monthly simulation use:
 
 ```r
+options(timeout = 600)
+
 mdp::run_pipeline(
   folder      = "C:/Users/luktr/Desktop/lucas/testa_pacote",  # Path to the project directory
   mes_inicial = 1,
