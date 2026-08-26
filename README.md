@@ -7,18 +7,13 @@ You can install the required packages directly from GitHub:
 install.packages("devtools")
 
 # Install package dependencies
-devtools::install_github("albhasan/prioritizedeforestationhotspots")
 devtools::install_github("LucasUfmg/MDP")
-devtools::install_github("wtassinari/queimadasR")
-
 ```
 
 # Load the packages
 
 ```r
-library(prioritizedeforestationhotspots)
 library(mdp)
-library(queimadasR)
 ```
 
 # Minimal example
