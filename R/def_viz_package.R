@@ -27,6 +27,36 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
   output_path <- file.path(folder, "outputs")
   dir.create(output_path, recursive = TRUE, showWarnings = FALSE)
 
+  # ============================================================
+  # VISUALIZATION THEME
+  # ============================================================
+
+  viz_theme <- ggplot2::theme_classic(
+    base_size = 22
+  ) +
+    ggplot2::theme(
+      axis.title = ggplot2::element_text(
+        size = 24,
+        face = "bold"
+      ),
+      axis.text = ggplot2::element_text(
+        size = 20,
+        color = "black"
+      ),
+      plot.title = ggplot2::element_text(
+        size = 28,
+        face = "bold",
+        hjust = 0.5
+      ),
+      legend.title = ggplot2::element_text(
+        size = 22,
+        face = "bold"
+      ),
+      legend.text = ggplot2::element_text(
+        size = 20
+      ),
+      legend.position = "right"
+    )
 
   # ============================================================
   # LOAD DEFORESTATION DATA
@@ -47,11 +77,27 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
     message("Running with DETER in def_viz...")
 
     deter <- update_deforestation()
-    deter <- ensure_crs(deter)
 
-    message("DETER loaded.")
+    message(
+      "Class returned by update_deforestation(): ",
+      paste(class(deter), collapse = ", ")
+    )
+
+    if (is.null(deter)) {
+      message(
+        "update_deforestation() returned NULL. ",
+        "Using get_deforestation() instead."
+      )
+
+      deter <- get_deforestation() |>
+        dplyr::rename(geometry = .data$geom)
+    }
+
   }
 
+  deter <- ensure_crs(deter)
+
+  message("DETER loaded.")
 
   # ============================================================
   # OBJECTS THAT WILL STORE ALL YEARS
@@ -203,15 +249,34 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
         res = 300
       )
 
+      # print(
+      #   ggplot2::ggplot(prio) +
+      #     ggplot2::geom_sf(
+      #       ggplot2::aes(fill = priority1)
+      #     ) +
+      #     ggplot2::geom_sf(
+      #       data = d
+      #     ) +
+      #     ggplot2::theme_minimal()
+      # )
+
       print(
         ggplot2::ggplot(prio) +
           ggplot2::geom_sf(
-            ggplot2::aes(fill = priority1)
+            ggplot2::aes(fill = priority1),
+            color = "grey30",
+            linewidth = 0.25
           ) +
           ggplot2::geom_sf(
-            data = d
+            data = d,
+            fill = NA,
+            color = "black",
+            linewidth = 0.5
           ) +
-          ggplot2::theme_minimal()
+          ggplot2::labs(
+            fill = "Priority"
+          ) +
+          viz_theme
       )
 
       grDevices::dev.off()
@@ -285,19 +350,43 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
         res = 300
       )
 
+      # print(
+      #   ggplot2::ggplot() +
+      #     ggplot2::geom_sf(
+      #       data = grid_with_patches,
+      #       ggplot2::aes(fill = category),
+      #       color = "grey30",
+      #       size = 0.1
+      #     ) +
+      #     ggplot2::geom_sf(
+      #       data = d,
+      #       fill = NA,
+      #       color = "black",
+      #       size = 0.2
+      #     ) +
+      #     ggplot2::scale_fill_manual(
+      #       values = c(
+      #         "High + Patch" = "green",
+      #         "High + No Patch" = "red",
+      #         "Other" = "lightgrey"
+      #       )
+      #     ) +
+      #     ggplot2::theme_minimal()
+      # )
+
       print(
         ggplot2::ggplot() +
           ggplot2::geom_sf(
             data = grid_with_patches,
             ggplot2::aes(fill = category),
             color = "grey30",
-            size = 0.1
+            linewidth = 0.25
           ) +
           ggplot2::geom_sf(
             data = d,
             fill = NA,
             color = "black",
-            size = 0.2
+            linewidth = 0.6
           ) +
           ggplot2::scale_fill_manual(
             values = c(
@@ -306,7 +395,10 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
               "Other" = "lightgrey"
             )
           ) +
-          ggplot2::theme_minimal()
+          ggplot2::labs(
+            fill = "Class"
+          ) +
+          viz_theme
       )
 
       grDevices::dev.off()
@@ -374,15 +466,12 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
             has_patch == FALSE
         )
 
-
       n_commission <- nrow(
         commission_errors
       )
 
-
       commission_rate <-
         n_commission / n_total_high
-
 
       # ==========================================================
       # AREA BY REGION
@@ -464,25 +553,29 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
             y = p,
             color = priority1
           ) +
-          ggplot2::geom_point(size = 2.5) +
-          ggplot2::geom_line(size = 1.1) +
+          ggplot2::geom_point(
+            size = 4
+          ) +
+          ggplot2::geom_line(
+            linewidth = 1.5
+          ) +
           ggplot2::scale_x_continuous(
-            breaks = 1:12,
-            labels = month.name
+            breaks = c(1, 6, 12),
+            labels = c("Jan", "Jun", "Dec")
           ) +
           ggplot2::ylab("%") +
           ggplot2::geom_text(
             ggplot2::aes(
               label = round(p, 2)
             ),
-            vjust = -0.5,
-            size = 4
+            vjust = -0.7,
+            size = 6,
+            fontface = "bold"
           ) +
-          ggplot2::theme_classic(
-            base_size = 16
+          viz_theme +  ggplot2::theme(
+            legend.position = "none"
           )
       )
-
       grDevices::dev.off()
 
 
@@ -501,7 +594,7 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
         res = 300
       )
 
-      print(
+       print(
         result |>
           dplyr::group_by(ref_yer) |>
           dplyr::summarise(
@@ -513,25 +606,30 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
             x = ref_yer,
             y = n
           ) +
-          ggplot2::geom_point(size = 2.5) +
-          ggplot2::geom_line(size = 1.1) +
+          ggplot2::geom_point(
+            size = 4
+          ) +
+          ggplot2::geom_line(
+            linewidth = 1.5
+          ) +
           ggplot2::scale_x_continuous(
-            breaks = 1:12,
-            labels = month.name
+            breaks = c(1, 6, 12),
+            labels = c("Jan", "Jun", "Dec")
           ) +
           ggplot2::geom_text(
             ggplot2::aes(
               label = round(n, 2)
             ),
             vjust = -1,
-            size = 4
+            size = 6,
+            fontface = "bold"
           ) +
+          ggplot2::xlab("Month") +
+          ggplot2::ylab("Commission errors (%)") +
           ggplot2::ggtitle(
-            "Comission Erros"
+            "Commission Errors"
           ) +
-          ggplot2::theme_classic(
-            base_size = 16
-          )
+          viz_theme
       )
 
       grDevices::dev.off()
@@ -569,23 +667,23 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
             ggplot2::aes(
               x = month,
               y = n,
-              fill = interaction_var
+              fill = interaction_var,
+              group = interaction_var
             )
           ) +
           ggplot2::geom_col(
             position = "dodge"
           ) +
-          ggplot2::geom_text(
-            ggplot2::aes(
-              label = paste0(
-                round(perc, 1),
-                "%"
-              )
-            ),
-            position = ggplot2::position_dodge(0.8),
-            vjust = -0.5
+            ggplot2::scale_x_discrete(
+            breaks = c("Jan", "Jun", "Dec"),
+            labels = c("Jan", "Jun", "Dec")
           ) +
-          ggplot2::theme_minimal()
+          ggplot2::xlab("Meses") +
+          ggplot2::ylab(" Total de celulas de alta priorizacao") +
+          viz_theme +
+          ggplot2::theme(
+            legend.position = "none"
+          )
       )
 
       grDevices::dev.off()
@@ -637,10 +735,12 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
           size = 4
         ) +
         ggplot2::xlab("Year") +
-        ggplot2::ylab("%") +
+        ggplot2::ylab("% de priorizacao") +
         ggplot2::theme_classic(
-          base_size = 16
-        )
+          base_size = 16) +
+          ggplot2::theme(
+            legend.position = "none"
+          )
     )
 
     grDevices::dev.off()
@@ -684,7 +784,7 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
           size = 4
         ) +
         ggplot2::xlab("Year") +
-        ggplot2::ylab("Commission errors (%)") +
+        ggplot2::ylab("High prioritization commission errors (%)") +
         ggplot2::ggtitle(
           "Commission Errors"
         ) +
@@ -705,7 +805,7 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
         output_path,
         "erro_comissao_final.png"
       ),
-      width = 3000,
+      width = 8000,
       height = 2400,
       res = 300
     )

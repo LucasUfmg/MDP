@@ -21,11 +21,11 @@ update_deforestation <- function() {
     return(base)
   }
 
-  # 4. Build CQL filter
+  #4. Build CQL filter
   cql <- sprintf(
-    "view_date >= '%s' AND view_date <= '%s'",
-    start_date,
-    end_date
+   "view_date >= '%s' AND view_date <= '%s'",
+   start_date,
+   end_date
   )
 
   cql <- utils::URLencode(cql, reserved = TRUE)
@@ -43,6 +43,7 @@ update_deforestation <- function() {
       "&version=2.0.0",
       "&request=GetFeature",
       "&typeNames=deter-amz:deter_amz",
+      #"&typeNames=deter_public",
       "&outputFormat=application/json",
       "&CQL_FILTER=", cql,
       "&count=", page_size,
@@ -50,7 +51,7 @@ update_deforestation <- function() {
       "&sortBy=gid"
     )
 
-    x <- try(sf::st_read(url, quiet = TRUE), silent = TRUE)
+    x <- try(sf::st_read(url, quiet = T), silent = T)
 
     if (inherits(x, "try-error") || nrow(x) == 0)
       break
@@ -62,6 +63,7 @@ update_deforestation <- function() {
 
     start_index <- start_index + page_size
   }
+
 
   # 6. Merge + deduplicate
   if (length(pieces) > 0) {

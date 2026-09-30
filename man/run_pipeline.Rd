@@ -12,7 +12,10 @@ run_pipeline(
   mes_final = NULL,
   run_prio = TRUE,
   run_prep = TRUE,
-  annual = F
+  annual = FALSE,
+  data_ano_max = NULL,
+  data_mes_max = NULL,
+  allow_partial = TRUE
 )
 }
 \arguments{
@@ -31,6 +34,13 @@ run_pipeline(
 \item{run_prep}{Logical, whether to run def_prep}
 
 \item{annual}{Logical, whether to run PRODES or DETER}
+
+\item{data_ano_max}{Maximum year available in the dataset}
+
+\item{data_mes_max}{Maximum month available in the dataset}
+
+\item{allow_partial}{Logical, whether to automatically use the
+available period when the requested period exceeds the data}
 }
 \description{
 Executes def_prep, def_prio, and def_viz sequentially.

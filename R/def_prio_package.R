@@ -291,7 +291,20 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final,annu
           readRDS() |>
           dplyr::mutate(pred_def_km2 = pred_def / 1e6)
 
-        probs <- c(0, 0.6, 0.95, 1)
+        #probs <- c(0, 0.6, 0.95, 1)
+        probs <- if (!annual && i %in% c(1, 2, 3, 11, 12)) {
+          c(0, 0.6, 0.99, 1)
+          cat
+        } else {
+          c(0, 0.6, 0.9, 1)
+        }
+
+        message(
+          "Ano: ", j,
+          " | Mês: ", i,
+          " | probs: ", paste(probs, collapse = ", ")
+        )
+
         labels <- c("Low", "Average", "High")
 
         results_year <- results_tb |>
