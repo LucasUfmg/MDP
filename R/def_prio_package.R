@@ -293,8 +293,8 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final,annu
 
         #probs <- c(0, 0.6, 0.95, 1)
         probs <- if (!annual && i %in% c(1, 2, 3, 11, 12)) {
-          c(0, 0.6, 0.99, 1)
-          cat
+          c(0, 0.6, 0.96, 1)
+
         } else {
           c(0, 0.6, 0.9, 1)
         }
@@ -302,7 +302,7 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final,annu
         message(
           "Ano: ", j,
           " | Mês: ", i,
-          " | probs: ", paste(probs, collapse = ", ")
+          " | probs: ", paste(probs, collapse = " ")
         )
 
         labels <- c("Low", "Average", "High")
