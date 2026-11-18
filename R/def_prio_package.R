@@ -14,8 +14,6 @@
 #' @return Invisible list of output directories
 #' @export
 
-
-
 def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final,annual) {
 
   sf::sf_use_s2(FALSE)
@@ -301,7 +299,7 @@ def_prio <- function(folder, ano_inicial, ano_final, mes_inicial, mes_final,annu
 
         message(
           "Ano: ", j,
-          " | Mês: ", i,
+          " | Mes: ", i,
           " | probs: ", paste(probs, collapse = " ")
         )
 

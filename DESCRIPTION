@@ -18,7 +18,10 @@ Imports:
     tools,
     prioritizedeforestationhotspots,
     queimadasR,
-    utils
+    utils,
+    httr,
+    jsonlite,
+    magrittr
 Remotes:
     github::albhasan/prioritizedeforestationhotspots,
     github::wtassinari/queimadasR

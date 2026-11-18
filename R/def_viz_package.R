@@ -76,7 +76,7 @@ def_viz <- function(folder, mes_inicial, mes_final, ano_final, ano_inicial, annu
 
     message("Running with DETER in def_viz...")
 
-    deter <- update_deforestation()
+    deter <- update_deforestation(update_remote = FALSE)
 
     message(
       "Class returned by update_deforestation(): ",

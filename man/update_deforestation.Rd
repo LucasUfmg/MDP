@@ -2,10 +2,20 @@
 % Please edit documentation in R/def_download_package.R
 \name{update_deforestation}
 \alias{update_deforestation}
-\title{Amazon biome download update months}
+\title{Update the DETER deforestation dataset}
 \usage{
-update_deforestation()
+update_deforestation(update_remote = TRUE)
+}
+\arguments{
+\item{update_remote}{Logical. If TRUE, attempts to retrieve
+new alerts from TerraBrasilis. If FALSE, returns only the
+cached dataset.}
+}
+\value{
+An sf object containing the cached dataset and,
+when successfully retrieved, new DETER alerts.
 }
 \description{
-Amazon biome download update months
+Retrieves new DETER alerts from TerraBrasilis and combines
+them with the cached dataset.
 }
