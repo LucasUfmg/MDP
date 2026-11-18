@@ -4,10 +4,10 @@ You can install the required packages directly from GitHub:
 
 ```r
 # Install devtools if needed
-install.packages("devtools")
+pak::pak("devtools")
 
 # Install package dependencies
-devtools::install_github("LucasUfmg/MDP")
+pak::pak("LucasUfmg/MDP")
 ```
 
 # Load the packages
