@@ -1,28 +1,16 @@
-# Installation
-
+# Minimal example
 You can install the required packages directly from GitHub:
 
 ```r
-# Install devtools if needed
-pak::pak("devtools")
-
 # Install package dependencies
+pak::pak("devtools")
 pak::pak("LucasUfmg/MDP")
-```
 
 # Load the packages
-
-```r
 library(mdp)
-```
 
-# Minimal example
+# If you want to run a monthly simulation use:
 
-Run the complete pipeline by specifying your working directory and the desired time period. 
-
-If you want to run a monthly simulation use:
-
-```r
 options(timeout = 600)
 
 mdp::run_pipeline(
